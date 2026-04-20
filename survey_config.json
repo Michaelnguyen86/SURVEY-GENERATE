@@ -1,0 +1,366 @@
+{
+  "survey_meta": {
+    "title": "BẢNG CÂU HỎI KHẢO SÁT",
+    "subtitle": "Dự án nghiên cứu: Bình đẳng giới và bất bình đẳng trong quản trị chuỗi cung ứng",
+    "intro_text": "Kính thưa Quý Ông/Bà,\n\nChúng tôi là nhóm nghiên cứu đến từ Trường Đại học RMIT Việt Nam, hiện đang triển khai dự án nghiên cứu về bình đẳng giới trong quản trị chuỗi cung ứng tại Việt Nam.\n\nChúng tôi trân trọng kính mời Quý Ông/Bà tham gia thực hiện bảng câu hỏi khảo sát này. Thời gian thực hiện khoảng 10–15 phút. Mọi thông tin cá nhân sẽ được bảo mật tuyệt đối và chỉ sử dụng cho mục đích nghiên cứu.\n\nChúng tôi xin chân thành cảm ơn sự hỗ trợ và hợp tác của Quý Ông/Bà.",
+    "admin_password": "research2026",
+    "version": "17Mar2026",
+    "language": "vi"
+  },
+  "demographic_section": {
+    "title": "PHẦN I: THÔNG TIN VỀ ĐÁP VIÊN",
+    "questions": [
+      {
+        "number": 1,
+        "variable": "q_info_1",
+        "text": "Giới tính của đáp viên là:",
+        "type": "radio",
+        "options": ["Nam", "Nữ", "Khác"],
+        "coding": {"Nam": 1, "Nữ": 2, "Khác": 3},
+        "has_other": false
+      },
+      {
+        "number": 2,
+        "variable": "q_info_2",
+        "text": "Cấp bậc công việc hiện tại của đáp viên trong tổ chức là gì:",
+        "type": "radio",
+        "options": [
+          "Nhân viên vận hành / Nhân viên mới",
+          "Nhân viên cấp cao / Chuyên viên",
+          "Giám sát / Trưởng nhóm",
+          "Quản lý cấp trung",
+          "Quản lý cấp cao / Giám đốc",
+          "Ban lãnh đạo điều hành (Phó Chủ tịch / Cấp C)"
+        ],
+        "coding": {
+          "Nhân viên vận hành / Nhân viên mới": 1,
+          "Nhân viên cấp cao / Chuyên viên": 2,
+          "Giám sát / Trưởng nhóm": 3,
+          "Quản lý cấp trung": 4,
+          "Quản lý cấp cao / Giám đốc": 5,
+          "Ban lãnh đạo điều hành (Phó Chủ tịch / Cấp C)": 6
+        },
+        "has_other": false
+      },
+      {
+        "number": 3,
+        "variable": "q_info_3",
+        "text": "Doanh nghiệp của đáp viên chủ yếu hoạt động trong lĩnh vực nào?",
+        "type": "radio",
+        "options": [
+          "Sản xuất / Sản xuất công nghiệp",
+          "Logistics / Vận tải / Kho bãi",
+          "Bán lẻ / Thương mại điện tử / Phân phối",
+          "Nông nghiệp / Chuỗi cung ứng thực phẩm",
+          "Công nghệ / Nền tảng số",
+          "Năng lượng / Dịch vụ tiện ích",
+          "Y tế / Dược phẩm",
+          "Khác (vui lòng ghi rõ)"
+        ],
+        "coding": {
+          "Sản xuất / Sản xuất công nghiệp": 1,
+          "Logistics / Vận tải / Kho bãi": 2,
+          "Bán lẻ / Thương mại điện tử / Phân phối": 3,
+          "Nông nghiệp / Chuỗi cung ứng thực phẩm": 4,
+          "Công nghệ / Nền tảng số": 5,
+          "Năng lượng / Dịch vụ tiện ích": 6,
+          "Y tế / Dược phẩm": 7,
+          "Khác (vui lòng ghi rõ)": 8
+        },
+        "has_other": true
+      },
+      {
+        "number": 4,
+        "variable": "q_info_4",
+        "text": "Ông/bà đánh giá mức độ trưởng thành về kỹ thuật số trong chuỗi cung ứng của tổ chức mình như thế nào?",
+        "type": "radio",
+        "options": [
+          "Rất thấp (Chủ yếu là các quy trình thủ công)",
+          "Thấp (Sử dụng hạn chế các công cụ kỹ thuật số)",
+          "Trung bình (Công cụ kỹ thuật số được sử dụng trong một vài quy trình)",
+          "Cao (Các hệ thống kỹ thuật số đã được tích hợp)",
+          "Rất cao (Vận hành dựa trên trí tuệ nhân tạo AI và dữ liệu)"
+        ],
+        "coding": {
+          "Rất thấp (Chủ yếu là các quy trình thủ công)": 1,
+          "Thấp (Sử dụng hạn chế các công cụ kỹ thuật số)": 2,
+          "Trung bình (Công cụ kỹ thuật số được sử dụng trong một vài quy trình)": 3,
+          "Cao (Các hệ thống kỹ thuật số đã được tích hợp)": 4,
+          "Rất cao (Vận hành dựa trên trí tuệ nhân tạo AI và dữ liệu)": 5
+        },
+        "has_other": false
+      },
+      {
+        "number": 5,
+        "variable": "q_info_5",
+        "text": "Tổ chức của đáp viên sử dụng công nghệ AI trong quản trị chuỗi cung ứng ở mức độ nào?",
+        "type": "radio",
+        "options": [
+          "Chưa áp dụng AI",
+          "Đang trong giai đoạn thử nghiệm / Dự án thí điểm",
+          "Áp dụng ở mức độ hạn chế",
+          "Áp dụng ở mức độ trung bình",
+          "Áp dụng rộng rãi các hoạt động chuỗi cung ứng dựa trên AI"
+        ],
+        "coding": {
+          "Chưa áp dụng AI": 1,
+          "Đang trong giai đoạn thử nghiệm / Dự án thí điểm": 2,
+          "Áp dụng ở mức độ hạn chế": 3,
+          "Áp dụng ở mức độ trung bình": 4,
+          "Áp dụng rộng rãi các hoạt động chuỗi cung ứng dựa trên AI": 5
+        },
+        "has_other": false
+      },
+      {
+        "number": 6,
+        "variable": "q_info_6",
+        "text": "Quy mô doanh nghiệp của đáp viên:",
+        "type": "radio",
+        "options": [
+          "Doanh nghiệp siêu nhỏ (1-10 nhân viên)",
+          "Doanh nghiệp nhỏ (11-50 nhân viên)",
+          "Doanh nghiệp vừa (51-250 nhân viên)",
+          "Doanh nghiệp lớn (251-1000 nhân viên)",
+          "Doanh nghiệp rất lớn (trên 1000 nhân viên)"
+        ],
+        "coding": {
+          "Doanh nghiệp siêu nhỏ (1-10 nhân viên)": 1,
+          "Doanh nghiệp nhỏ (11-50 nhân viên)": 2,
+          "Doanh nghiệp vừa (51-250 nhân viên)": 3,
+          "Doanh nghiệp lớn (251-1000 nhân viên)": 4,
+          "Doanh nghiệp rất lớn (trên 1000 nhân viên)": 5
+        },
+        "has_other": false
+      },
+      {
+        "number": 7,
+        "variable": "q_info_7",
+        "text": "Số năm kinh nghiệm của ông/bà trong lĩnh vực chuỗi cung ứng?",
+        "type": "radio",
+        "options": [
+          "Dưới 2 năm",
+          "Từ 2-5 năm",
+          "Từ 6-10 năm",
+          "Từ 11-15 năm",
+          "Trên 15 năm"
+        ],
+        "coding": {
+          "Dưới 2 năm": 1,
+          "Từ 2-5 năm": 2,
+          "Từ 6-10 năm": 3,
+          "Từ 11-15 năm": 4,
+          "Trên 15 năm": 5
+        },
+        "has_other": false
+      },
+      {
+        "number": 8,
+        "variable": "q_info_8",
+        "text": "Mức độ trưởng thành về ESG (Môi trường - Xã hội - Quản trị) của doanh nghiệp mình là:",
+        "type": "radio",
+        "options": [
+          "Chưa có chính sách ESG",
+          "Các sáng kiến ESG đang ở giai đoạn đầu/sơ khai",
+          "Có chính sách ESG trong một số lĩnh vực cụ thể",
+          "Chiến lược ESG được thiết lập bài bản/vững chắc",
+          "Quản trị ESG được tích hợp hoàn toàn vào hoạt động tổ chức"
+        ],
+        "coding": {
+          "Chưa có chính sách ESG": 1,
+          "Các sáng kiến ESG đang ở giai đoạn đầu/sơ khai": 2,
+          "Có chính sách ESG trong một số lĩnh vực cụ thể": 3,
+          "Chiến lược ESG được thiết lập bài bản/vững chắc": 4,
+          "Quản trị ESG được tích hợp hoàn toàn vào hoạt động tổ chức": 5
+        },
+        "has_other": false
+      },
+      {
+        "number": 9,
+        "variable": "q_info_9",
+        "text": "Chức năng chính trong chuỗi cung ứng của doanh nghiệp mình là:",
+        "type": "radio",
+        "options": [
+          "Thu mua / Cung ứng vật tư",
+          "Sản xuất / Vận hành",
+          "Logistics / Vận tải",
+          "Lập kế hoạch chuỗi cung ứng",
+          "Quản trị phát triển bền vững / ESG",
+          "Phân tích dữ liệu / Chuỗi cung ứng số",
+          "Quản lý điều hành"
+        ],
+        "coding": {
+          "Thu mua / Cung ứng vật tư": 1,
+          "Sản xuất / Vận hành": 2,
+          "Logistics / Vận tải": 3,
+          "Lập kế hoạch chuỗi cung ứng": 4,
+          "Quản trị phát triển bền vững / ESG": 5,
+          "Phân tích dữ liệu / Chuỗi cung ứng số": 6,
+          "Quản lý điều hành": 7
+        },
+        "has_other": false
+      }
+    ]
+  },
+  "likert_sections": [
+    {
+      "id": "SEI",
+      "title": "PHẦN I: BẤT BÌNH ĐẲNG VỀ CẤU TRÚC VÀ KINH TẾ XÃ HỘI (SEI)",
+      "short_title": "SEI — Bất bình đẳng cấu trúc & kinh tế xã hội",
+      "description": "Đánh giá bất bình đẳng về cấu trúc và kinh tế xã hội tại công ty nơi đáp viên làm việc",
+      "variable_prefix": "sei_",
+      "scale": 5,
+      "scale_labels": ["Hoàn toàn không đồng ý", "Không đồng ý", "Trung lập", "Đồng ý", "Hoàn toàn đồng ý"],
+      "questions": [
+        {"number": 1, "text": "Sự khác biệt về cơ hội giáo dục ảnh hưởng đến khả năng thăng tiến nghề nghiệp trong các vị trí chuỗi cung ứng."},
+        {"number": 2, "text": "Bất bình đẳng về thu nhập ảnh hưởng đến khả năng tiếp cận các cơ hội lãnh đạo của nhân viên."},
+        {"number": 3, "text": "Nền tảng kinh tế xã hội định hình khả năng dịch chuyển nghề nghiệp (thay đổi vị trí/thăng chức) trong các tổ chức chuỗi cung ứng."},
+        {"number": 4, "text": "Sắc tộc hoặc tầng lớp xã hội ảnh hưởng đến các cơ hội phát triển chuyên môn trong ngành chuỗi cung ứng."},
+        {"number": 5, "text": "Việc tiếp cận không bình đẳng các chương trình đào tạo chuyên môn ảnh hưởng đến sự thăng tiến trong các vai trò chuỗi cung ứng."},
+        {"number": 6, "text": "Nhân viên có hoàn cảnh kinh tế xã hội khó khăn phải đối mặt với nhiều rào cản hơn trong con đường sự nghiệp của ngành chuỗi cung ứng."},
+        {"number": 7, "text": "Bất bình đẳng xã hội có tác động đến các quyết định tuyển dụng và thăng tiến trong các tổ chức chuỗi cung ứng."}
+      ]
+    },
+    {
+      "id": "LWI",
+      "title": "PHẦN II: BẤT BÌNH ĐẲNG VỀ GIỚI TÍNH VÀ LAO ĐỘNG (LWI)",
+      "short_title": "LWI — Bất bình đẳng giới tính & lao động",
+      "description": "Đánh giá sự bất bình đẳng về giới tính và lao động tại công ty nơi đáp viên đang đi làm",
+      "variable_prefix": "lwi_",
+      "scale": 5,
+      "scale_labels": ["Hoàn toàn không đồng ý", "Không đồng ý", "Trung lập", "Đồng ý", "Hoàn toàn đồng ý"],
+      "questions": [
+        {"number": 1, "text": "Khoảng cách thu nhập theo giới tính vẫn tồn tại trong các vị trí chuỗi cung ứng tại tổ chức của tôi."},
+        {"number": 2, "text": "Một số vai trò nhất định trong chuỗi cung ứng đang bị chiếm ưu thế bởi một giới tính cụ thể."},
+        {"number": 3, "text": "Phụ nữ đối mặt với nhiều rào cản hơn trong việc thăng tiến sự nghiệp ngành chuỗi cung ứng."},
+        {"number": 4, "text": "Các hình thức làm việc phi chính thức hoặc bấp bênh thường phổ biến hơn đối với lao động nữ trong ngành chuỗi cung ứng."},
+        {"number": 5, "text": "Phụ nữ đảm nhận các vai trò trong chuỗi cung ứng thường nhận được ít cơ hội phát triển nghề nghiệp hơn."},
+        {"number": 6, "text": "Có sự khác biệt về giới tính trong việc tiếp cận các nhiệm vụ chiến lược hoặc các nhiệm vụ có giá trị cao trong chuỗi cung ứng."},
+        {"number": 7, "text": "Nhân viên nữ gặp nhiều thách thức hơn trong việc đạt được sự ổn định nghề nghiệp lâu dài trong ngành chuỗi cung ứng."}
+      ]
+    },
+    {
+      "id": "PGI",
+      "title": "PHẦN III: BẤT BÌNH ĐẲNG VỀ QUYỀN LỰC & QUẢN TRỊ (PGI)",
+      "short_title": "PGI — Bất bình đẳng quyền lực & quản trị",
+      "description": "Đánh giá sự bất bình đẳng về quyền lực & quản trị tại công ty nơi đáp viên đang đi làm",
+      "variable_prefix": "pgi_",
+      "scale": 5,
+      "scale_labels": ["Hoàn toàn không đồng ý", "Không đồng ý", "Trung lập", "Đồng ý", "Hoàn toàn đồng ý"],
+      "questions": [
+        {"number": 1, "text": "Quyền ra quyết định trong quản trị chuỗi cung ứng phần lớn nằm trong tay nam giới."},
+        {"number": 2, "text": "Phụ nữ chưa được đại diện tương xứng (tỷ lệ thấp) trong các vị trí lãnh đạo chiến lược của chuỗi cung ứng."},
+        {"number": 3, "text": "Định kiến giới tính có ảnh hưởng đến việc lựa chọn nhà cung cấp hoặc các quyết định quản trị."},
+        {"number": 4, "text": "Phụ nữ có tầm ảnh hưởng hạn chế đối với các quyết định về chính sách của chuỗi cung ứng."},
+        {"number": 5, "text": "Các vai trò lãnh đạo trong quản trị chuỗi cung ứng bị nam giới nắm giữ một cách không cân xứng (chiếm đa số áp đảo)."},
+        {"number": 6, "text": "Các chuyên gia nữ có ít cơ hội hơn trong việc gây ảnh hưởng đến quá trình lập kế hoạch chiến lược chuỗi cung ứng."},
+        {"number": 7, "text": "Cơ cấu quản trị của tổ chức làm hạn chế sự tham gia của phụ nữ vào các cấp lãnh đạo chuỗi cung ứng."}
+      ]
+    },
+    {
+      "id": "SCPO",
+      "title": "PHẦN IV: THỰC THI VÀ KẾT QUẢ CHUỖI CUNG ỨNG (SCPO)",
+      "short_title": "SCPO — Thực thi & kết quả chuỗi cung ứng",
+      "description": "Đánh giá sự thực thi và kết quả chuỗi cung ứng tại công ty nơi đáp viên đang đi làm",
+      "variable_prefix": "scpo_",
+      "scale": 5,
+      "scale_labels": ["Hoàn toàn không đồng ý", "Không đồng ý", "Trung lập", "Đồng ý", "Hoàn toàn đồng ý"],
+      "questions": [
+        {"number": 1, "text": "Bình đẳng giới giúp cải thiện sự phối hợp và cộng tác trong các nhóm chuỗi cung ứng."},
+        {"number": 2, "text": "Các quy trình chuỗi cung ứng mang tính hòa nhập (không phân biệt) giúp nâng cao hiệu quả vận hành."},
+        {"number": 3, "text": "Sự đa dạng về giới tính giúp cải thiện khả năng chống chịu (Resilience) của chuỗi cung ứng."},
+        {"number": 4, "text": "Cơ hội bình đẳng giúp nâng cao năng suất trong các hoạt động của chuỗi cung ứng."},
+        {"number": 5, "text": "Sự đa dạng giới tính giúp cải thiện khả năng giải quyết vấn đề trong các hoạt động chuỗi cung ứng."},
+        {"number": 6, "text": "Môi trường làm việc hòa nhập giúp tăng cường sự phối hợp giữa các đối tác trong chuỗi cung ứng."},
+        {"number": 7, "text": "Các tổ chức có đội ngũ cân bằng về giới tính cho thấy khả năng thích ứng chuỗi cung ứng mạnh mẽ hơn."}
+      ]
+    },
+    {
+      "id": "SESI",
+      "title": "PHẦN V: TÁC ĐỘNG KINH TẾ - XÃ HỘI VÀ SỰ BỀN VỮNG (SESI)",
+      "short_title": "SESI — Tác động kinh tế-xã hội & bền vững",
+      "description": "Đánh giá tác động kinh tế - xã hội và sự bền vững tại công ty nơi đáp viên đang đi làm",
+      "variable_prefix": "sesi_",
+      "scale": 5,
+      "scale_labels": ["Hoàn toàn không đồng ý", "Không đồng ý", "Trung lập", "Đồng ý", "Hoàn toàn đồng ý"],
+      "questions": [
+        {"number": 1, "text": "Bình đẳng giới giúp cải thiện phúc lợi của nhân viên trong các tổ chức chuỗi cung ứng."},
+        {"number": 2, "text": "Chuỗi cung ứng hòa nhập (không phân biệt đối xử) đóng góp vào sự bền vững về mặt xã hội."},
+        {"number": 3, "text": "Bình đẳng giới giúp củng cố hiệu quả kinh tế trong dài hạn của doanh nghiệp."},
+        {"number": 4, "text": "Bình đẳng giới góp phần tạo ra các cơ hội kinh tế công bằng hơn trong các ngành công nghiệp chuỗi cung ứng."},
+        {"number": 5, "text": "Các chuỗi cung ứng hòa nhập giúp tăng cường phát triển cộng đồng và ổn định xã hội."},
+        {"number": 6, "text": "Các chính sách hòa nhập giới giúp cải thiện tính bền vững dài hạn của toàn bộ hệ sinh thái chuỗi cung ứng."}
+      ]
+    },
+    {
+      "id": "HCSC",
+      "title": "PHẦN VI: VĂN HÓA CHUỖI CUNG ỨNG LẤY CON NGƯỜI LÀM TRUNG TÂM (HCSC)",
+      "short_title": "HCSC — Văn hóa chuỗi cung ứng lấy con người làm trung tâm",
+      "description": "Đánh giá văn hóa chuỗi cung ứng lấy con người làm trung tâm tại công ty nơi đáp viên đang đi làm",
+      "variable_prefix": "hcsc_",
+      "scale": 5,
+      "scale_labels": ["Hoàn toàn không đồng ý", "Không đồng ý", "Trung lập", "Đồng ý", "Hoàn toàn đồng ý"],
+      "questions": [
+        {"number": 1, "text": "Tổ chức của chúng tôi ưu tiên phúc lợi của nhân viên trong các hoạt động chuỗi cung ứng."},
+        {"number": 2, "text": "Các quyết định về chuỗi cung ứng có cân nhắc đến các tác động về con người và xã hội."},
+        {"number": 3, "text": "Ban lãnh đạo khuyến khích sự tham gia hòa nhập của mọi người vào quá trình ra quyết định."},
+        {"number": 4, "text": "Quản trị lấy con người làm trung tâm giúp cải thiện sự bình đẳng tại nơi làm việc."},
+        {"number": 5, "text": "Tổ chức của chúng tôi thúc đẩy sự công bằng và bình đẳng trong quản trị nhân sự chuỗi cung ứng."},
+        {"number": 6, "text": "Phúc lợi của nhân viên được coi là một mục tiêu quan trọng trong các chiến lược chuỗi cung ứng."},
+        {"number": 7, "text": "Các nhà lãnh đạo chuỗi cung ứng tích cực ủng hộ các sáng kiến về đa dạng và hòa nhập."}
+      ]
+    },
+    {
+      "id": "GAI",
+      "title": "PHẦN VII: HỖ TRỢ RA QUYẾT ĐỊNH BẰNG GENERATIVE AI (GAI)",
+      "short_title": "GAI — Hỗ trợ ra quyết định bằng Generative AI",
+      "description": "Đánh giá sự hỗ trợ ra quyết định bằng Generative AI tại công ty nơi đáp viên đang đi làm",
+      "variable_prefix": "gai_",
+      "scale": 5,
+      "scale_labels": ["Hoàn toàn không đồng ý", "Không đồng ý", "Trung lập", "Đồng ý", "Hoàn toàn đồng ý"],
+      "questions": [
+        {"number": 1, "text": "Các công cụ AI tạo sinh (Generative AI) được sử dụng để hỗ trợ ra quyết định trong chuỗi cung ứng."},
+        {"number": 2, "text": "Các hệ thống dựa trên AI giúp giảm bớt định kiến trong việc đánh giá hiệu suất chuỗi cung ứng."},
+        {"number": 3, "text": "Phân tích được AI hỗ trợ giúp cải thiện sự công bằng trong quản trị nhân sự."},
+        {"number": 4, "text": "Các công cụ AI giúp tăng tính minh bạch trong quản trị chuỗi cung ứng."},
+        {"number": 5, "text": "Những thông tin chi tiết (insights) do AI tạo ra giúp các nhà quản trị đưa ra quyết định chuỗi cung ứng khách quan hơn."},
+        {"number": 6, "text": "Các công cụ GenAI giúp nhận diện những định kiến ngầm trong thực hành quản trị chuỗi cung ứng."},
+        {"number": 7, "text": "Các hệ thống ra quyết định được AI hỗ trợ giúp tăng cường tính minh bạch trong các quy trình của tổ chức."}
+      ]
+    },
+    {
+      "id": "AAI",
+      "title": "PHẦN VIII: QUẢN TRỊ BẰNG CHUỖI AI HÀNH ĐỘNG (AGENTIC AI - AAI)",
+      "short_title": "AAI — Quản trị bằng Chuỗi AI Hành động",
+      "description": "Đánh giá sự quản trị bằng chuỗi AI hành động (Agentic AI) tại công ty nơi đáp viên đang đi làm",
+      "variable_prefix": "aai_",
+      "scale": 5,
+      "scale_labels": ["Hoàn toàn không đồng ý", "Không đồng ý", "Trung lập", "Đồng ý", "Hoàn toàn đồng ý"],
+      "questions": [
+        {"number": 1, "text": "Các chuỗi AI hành động (AI agents) hỗ trợ các quyết định vận hành chuỗi cung ứng."},
+        {"number": 2, "text": "Các chuỗi AI hành động hỗ trợ giám sát sự công bằng trong các quy trình chuỗi cung ứng."},
+        {"number": 3, "text": "Tự động hóa dựa trên AI giúp cải thiện tính minh bạch trong quản trị nhà cung cấp."},
+        {"number": 4, "text": "Các chuỗi AI hành động tự chủ giúp đảm bảo tính công bằng trong các quyết định vận hành chuỗi cung ứng."},
+        {"number": 5, "text": "Các chuỗi AI hành động hỗ trợ tổ chức trong việc giám sát sự bình đẳng và tuân thủ trong chuỗi cung ứng."},
+        {"number": 6, "text": "Tự động hóa do chuỗi AI hành động thúc đẩy giúp nâng cao trách nhiệm giải trình trong các quy trình quản trị nhà cung cấp."}
+      ]
+    },
+    {
+      "id": "ESG",
+      "title": "PHẦN IX: CHÍNH SÁCH CHUỖI CUNG ỨNG DỰA TRÊN ESG",
+      "short_title": "ESG — Chính sách chuỗi cung ứng dựa trên ESG",
+      "description": "Đánh giá chính sách chuỗi cung ứng dựa trên ESG tại công ty nơi đáp viên đang đi làm",
+      "variable_prefix": "esg_",
+      "scale": 5,
+      "scale_labels": ["Hoàn toàn không đồng ý", "Không đồng ý", "Trung lập", "Đồng ý", "Hoàn toàn đồng ý"],
+      "questions": [
+        {"number": 1, "text": "Tổ chức của chúng tôi tích hợp bình đẳng giới vào các chiến lược ESG."},
+        {"number": 2, "text": "Việc lựa chọn nhà cung cấp có cân nhắc đến các tiêu chí về bình đẳng xã hội."},
+        {"number": 3, "text": "Các chính sách ESG khuyến khích sự đa dạng giới trong hàng ngũ lãnh đạo chuỗi cung ứng."},
+        {"number": 4, "text": "Báo cáo ESG giúp tăng trách nhiệm giải trình đối với bình đẳng tại nơi làm việc."},
+        {"number": 5, "text": "Các khung quản trị ESG thúc đẩy bình đẳng giới xuyên suốt các đối tác trong chuỗi cung ứng."},
+        {"number": 6, "text": "Tổ chức của chúng tôi thường xuyên đánh giá các chỉ số bình đẳng giới trong báo cáo ESG."},
+        {"number": 7, "text": "Quản trị dựa trên ESG giúp cải thiện tính minh bạch trong quản trị sự đa dạng của đội ngũ nhân sự."}
+      ]
+    }
+  ]
+}
