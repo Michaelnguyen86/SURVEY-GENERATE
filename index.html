@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BẢNG CÂU HỎI KHẢO SÁT – Bình đẳng giới &amp; Chuỗi cung ứng</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #f4f6f9;
+      color: #222;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    /* ── Progress bar ─────────────────────────────────────── */
+    #progress-wrap {
+      position: sticky; top: 0; z-index: 100;
+      background: #fff; border-bottom: 1px solid #dde3ea;
+      padding: 8px 20px;
+    }
+    #progress-label { font-size: 12px; color: #666; margin-bottom: 4px; }
+    #progress-bar-bg {
+      height: 8px; background: #dde3ea; border-radius: 4px; overflow: hidden;
+    }
+    #progress-bar-fill {
+      height: 100%; width: 0%; background: #1a56db;
+      border-radius: 4px; transition: width .3s ease;
+    }
+    /* ── Layout ───────────────────────────────────────────── */
+    .container { max-width: 860px; margin: 0 auto; padding: 30px 20px 60px; }
+    /* ── Header ───────────────────────────────────────────── */
+    .header {
+      background: #1a3c72;
+      color: #fff;
+      border-radius: 10px;
+      padding: 32px 36px;
+      margin-bottom: 28px;
+      text-align: center;
+    }
+    .header h1 { font-size: 1.6rem; margin-bottom: 8px; letter-spacing: .5px; }
+    .header p.sub { font-size: .95rem; opacity: .88; font-style: italic; }
+    .intro-box {
+      background: #eef3fb;
+      border-left: 4px solid #1a56db;
+      border-radius: 6px;
+      padding: 18px 22px;
+      margin-bottom: 28px;
+      font-size: .95rem;
+      white-space: pre-line;
+    }
+    /* ── Section card ─────────────────────────────────────── */
+    .section-card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.07);
+      margin-bottom: 28px;
+      overflow: hidden;
+    }
+    .section-header {
+      background: #1a3c72;
+      color: #fff;
+      padding: 14px 22px;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+    .section-desc {
+      background: #f0f4ff;
+      padding: 10px 22px;
+      font-size: .88rem;
+      color: #444;
+      border-bottom: 1px solid #dde3ea;
+    }
+    .section-body { padding: 20px 22px; }
+    /* ── Demographic questions ────────────────────────────── */
+    .q-block { margin-bottom: 22px; }
+    .q-block:last-child { margin-bottom: 0; }
+    .q-text {
+      font-weight: 600;
+      margin-bottom: 10px;
+      font-size: .95rem;
+    }
+    .q-num { color: #1a56db; margin-right: 6px; }
+    .radio-group label {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      padding: 7px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background .15s;
+      font-size: .92rem;
+    }
+    .radio-group label:hover { background: #f0f4ff; }
+    .radio-group input[type="radio"] { margin-top: 3px; accent-color: #1a56db; }
+    .other-input {
+      display: none;
+      margin-top: 6px;
+      margin-left: 26px;
+      width: calc(100% - 26px);
+      padding: 7px 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: .92rem;
+    }
+    .other-input:focus { outline: none; border-color: #1a56db; }
+    /* ── Likert table ─────────────────────────────────────── */
+    .likert-table { width: 100%; border-collapse: collapse; }
+    .likert-table th {
+      font-size: .78rem;
+      font-weight: 600;
+      text-align: center;
+      padding: 8px 4px;
+      background: #f0f4ff;
+      border: 1px solid #dde3ea;
+      color: #1a3c72;
+      width: 10%;
+    }
+    .likert-table th.q-col { width: 50%; text-align: left; }
+    .likert-table td {
+      border: 1px solid #eef0f3;
+      padding: 10px 4px;
+      text-align: center;
+      vertical-align: middle;
+    }
+    .likert-table td.q-text-cell {
+      text-align: left;
+      padding: 10px 12px;
+      font-size: .9rem;
+    }
+    .likert-table tr:nth-child(even) td { background: #fafbfd; }
+    .likert-table tr:hover td { background: #f0f4ff; }
+    .likert-table input[type="radio"] { accent-color: #1a56db; cursor: pointer; transform: scale(1.2); }
+    /* ── Submit section ───────────────────────────────────── */
+    .submit-section {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.07);
+      padding: 28px 32px;
+      text-align: center;
+    }
+    .submit-note { color: #555; font-size: .88rem; margin-bottom: 18px; }
+    #submit-btn {
+      background: #1a3c72;
+      color: #fff;
+      border: none;
+      padding: 14px 48px;
+      border-radius: 7px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      letter-spacing: .4px;
+      transition: background .2s;
+    }
+    #submit-btn:hover { background: #1a56db; }
+    #submit-btn:disabled { background: #9ab; cursor: not-allowed; }
+    /* ── Error / success ──────────────────────────────────── */
+    .error-banner {
+      display: none;
+      background: #fff3cd;
+      border: 1px solid #f5c518;
+      color: #7a5800;
+      border-radius: 7px;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      font-size: .9rem;
+    }
+    .success-page {
+      display: none;
+      text-align: center;
+      padding: 60px 20px;
+    }
+    .success-page h2 { font-size: 1.6rem; color: #1a3c72; margin-bottom: 12px; }
+    .success-page p { color: #555; font-size: 1rem; }
+    /* ── Required star ────────────────────────────────────── */
+    .req { color: #c0392b; margin-left: 3px; }
+    @media (max-width: 600px) {
+      .likert-table th, .likert-table td { font-size: .75rem; padding: 6px 2px; }
+      .header h1 { font-size: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Progress bar -->
+<div id="progress-wrap">
+  <div id="progress-label">Tiến độ: <span id="pct">0</span>%</div>
+  <div id="progress-bar-bg"><div id="progress-bar-fill"></div></div>
+</div>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <h1>BẢNG CÂU HỎI KHẢO SÁT</h1>
+    <p class="sub">Dự án nghiên cứu: Bình đẳng giới và bất bình đẳng trong quản trị chuỗi cung ứng</p>
+  </div>
+
+  <!-- Intro -->
+  <div class="intro-box">Kính thưa Quý Ông/Bà,
+
+Chúng tôi là nhóm nghiên cứu đến từ Trường Đại học RMIT Việt Nam, hiện đang triển khai dự án nghiên cứu về bình đẳng giới trong quản trị chuỗi cung ứng tại Việt Nam.
+
+Chúng tôi trân trọng kính mời Quý Ông/Bà tham gia thực hiện bảng câu hỏi khảo sát này. Thời gian thực hiện khoảng 10–15 phút. Mọi thông tin cá nhân sẽ được bảo mật tuyệt đối và chỉ sử dụng cho mục đích nghiên cứu.
+
+Chúng tôi xin chân thành cảm ơn sự hỗ trợ và hợp tác của Quý Ông/Bà.</div>
+
+  <!-- ════════════════════════════════════════════════════════
+       FORM
+       Replace YOUR_FORM_ID below with your Formspree form ID
+       Sign up free at https://formspree.io
+       ════════════════════════════════════════════════════════ -->
+  <div id="error-banner" class="error-banner"></div>
+
+  <form id="survey-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+
+    <!-- Hidden timestamp -->
+    <input type="hidden" name="timestamp" id="field-timestamp" />
+
+    <!-- ── PHẦN I: THÔNG TIN VỀ ĐÁP VIÊN ─────────────────── -->
+    <div class="section-card">
+      <div class="section-header">PHẦN I: THÔNG TIN VỀ ĐÁP VIÊN</div>
+      <div class="section-body">
+
+        <!-- Q1 -->
+        <div class="q-block">
+          <div class="q-text"><span class="q-num">1.</span>Giới tính của đáp viên là:<span class="req">*</span></div>
+          <div class="radio-group">
+            <label><input type="radio" name="q_info_1" value="1" required /> Nam</label>
+            <label><input type="radio" name="q_info_1" value="2" /> Nữ</label>
+            <label><input type="radio" name="q_info_1" value="3" /> Khác</label>
+          </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="q-block">
+          <div class="q-text"><span class="q-num">2.</span>Cấp bậc công việc hiện tại của đáp viên trong tổ chức là gì:<span class="req">*</span></div>
+          <div class="radio-group">
+            <label><input type="radio" name="q_info_2" value="1" required /> Nhân viên vận hành / Nhân viên mới</label>
+            <label><input type="radio" name="q_info_2" value="2" /> Nhân viên cấp cao / Chuyên viên</label>
+            <label><input type="radio" name="q_info_2" value="3" /> Giám sát / Trưởng nhóm</label>
+            <label><input type="radio" name="q_info_2" value="4" /> Quản lý cấp trung</label>
+            <label><input type="radio" name="q_info_2" value="5" /> Quản lý cấp cao / Giám đốc</label>
+            <label><input type="radio" name="q_info_2" value="6" /> Ban lãnh đạo điều hành (Phó Chủ tịch / Cấp C)</label>
+          </div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="q-block">
+          <div class="q-text"><span class="q-num">3.</span>Doanh nghiệp của đáp viên chủ yếu hoạt động trong lĩnh vực nào?<span class="req">*</span></div>
+          <div class="radio-group">
+            <label><input type="radio" name="q_info_3" value="1" required /> Sản xuất / Sản xuất công nghiệp</label>
+            <label><input type="radio" name="q_info_3" value="2" /> Logistics / Vận tải / Kho bãi</label>
+            <label><input type="radio" name="q_info_3" value="3" /> Bán lẻ / Thương mại điện tử / Phân phối</label>
+            <label><input type="radio" name="q_info_3" value="4" /> Nông nghiệp / Chuỗi cung ứng thực phẩm</label>
+            <label><input type="radio" name="q_info_3" value="5" /> Công nghệ / Nền tảng số</label>
+            <label><input type="radio" name="q_info_3" value="6" /> Năng lượng / Dịch vụ tiện ích</label>
+            <label><input type="radio" name="q_info_3" value="7" /> Y tế / Dược phẩm</label>
+            <label>
+              <input type="radio" name="q_info_3" value="8" onchange="toggleOther(this,'other_q3')" />
+              Khác (vui lòng ghi rõ)
+            </label>
+            <input type="text" id="other_q3" name="q_info_3_other" class="other-input" placeholder="Vui lòng ghi rõ…" />
+          </div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="q-block">
+          <div class="q-text"><span class="q-num">4.</span>Ông/bà đánh giá mức độ trưởng thành về kỹ thuật số trong chuỗi cung ứng của tổ chức mình như thế nào?<span class="req">*</span></div>
+          <div class="radio-group">
+            <label><input type="radio" name="q_info_4" value="1" required /> Rất thấp (Chủ yếu là các quy trình thủ công)</label>
+            <label><input type="radio" name="q_info_4" value="2" /> Thấp (Sử dụng hạn chế các công cụ kỹ thuật số)</label>
+            <label><input type="radio" name="q_info_4" value="3" /> Trung bình (Công cụ kỹ thuật số được sử dụng trong một vài quy trình)</label>
+            <label><input type="radio" name="q_info_4" value="4" /> Cao (Các hệ thống kỹ thuật số đã được tích hợp)</label>
+            <label><input type="radio" name="q_info_4" value="5" /> Rất cao (Vận hành dựa trên trí tuệ nhân tạo AI và dữ liệu)</label>
+          </div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="q-block">
+          <div class="q-text"><span class="q-num">5.</span>Tổ chức của đáp viên sử dụng công nghệ AI trong quản trị chuỗi cung ứng ở mức độ nào?<span class="req">*</span></div>
+          <div class="radio-group">
+            <label><input type="radio" name="q_info_5" value="1" required /> Chưa áp dụng AI</label>
+            <label><input type="radio" name="q_info_5" value="2" /> Đang trong giai đoạn thử nghiệm / Dự án thí điểm</label>
+            <label><input type="radio" name="q_info_5" value="3" /> Áp dụng ở mức độ hạn chế</label>
+            <label><input type="radio" name="q_info_5" value="4" /> Áp dụng ở mức độ trung bình</label>
+            <label><input type="radio" name="q_info_5" value="5" /> Áp dụng rộng rãi các hoạt động chuỗi cung ứng dựa trên AI</label>
+          </div>
+        </div>
+
+        <!-- Q6 -->
+        <div class="q-block">
+          <div class="q-text"><span class="q-num">6.</span>Quy mô doanh nghiệp của đáp viên:<span class="req">*</span></div>
+          <div class="radio-group">
+            <label><input type="radio" name="q_info_6" value="1" required /> Doanh nghiệp siêu nhỏ (1–10 nhân viên)</label>
+            <label><input type="radio" name="q_info_6" value="2" /> Doanh nghiệp nhỏ (11–50 nhân viên)</label>
+            <label><input type="radio" name="q_info_6" value="3" /> Doanh nghiệp vừa (51–250 nhân viên)</label>
+            <label><input type="radio" name="q_info_6" value="4" /> Doanh nghiệp lớn (251–1000 nhân viên)</label>
+            <label><input type="radio" name="q_info_6" value="5" /> Doanh nghiệp rất lớn (trên 1000 nhân viên)</label>
+          </div>
+        </div>
+
+        <!-- Q7 -->
+        <div class="q-block">
+          <div class="q-text"><span class="q-num">7.</span>Số năm kinh nghiệm của ông/bà trong lĩnh vực chuỗi cung ứng?<span class="req">*</span></div>
+          <div class="radio-group">
+            <label><input type="radio" name="q_info_7" value="1" required /> Dưới 2 năm</label>
+            <label><input type="radio" name="q_info_7" value="2" /> Từ 2–5 năm</label>
+            <label><input type="radio" name="q_info_7" value="3" /> Từ 6–10 năm</label>
+            <label><input type="radio" name="q_info_7" value="4" /> Từ 11–15 năm</label>
+            <label><input type="radio" name="q_info_7" value="5" /> Trên 15 năm</label>
+          </div>
+        </div>
+
+        <!-- Q8 -->
+        <div class="q-block">
+          <div class="q-text"><span class="q-num">8.</span>Mức độ trưởng thành về ESG (Môi trường – Xã hội – Quản trị) của doanh nghiệp mình là:<span class="req">*</span></div>
+          <div class="radio-group">
+            <label><input type="radio" name="q_info_8" value="1" required /> Chưa có chính sách ESG</label>
+            <label><input type="radio" name="q_info_8" value="2" /> Các sáng kiến ESG đang ở giai đoạn đầu/sơ khai</label>
+            <label><input type="radio" name="q_info_8" value="3" /> Có chính sách ESG trong một số lĩnh vực cụ thể</label>
+            <label><input type="radio" name="q_info_8" value="4" /> Chiến lược ESG được thiết lập bài bản/vững chắc</label>
+            <label><input type="radio" name="q_info_8" value="5" /> Quản trị ESG được tích hợp hoàn toàn vào hoạt động tổ chức</label>
+          </div>
+        </div>
+
+        <!-- Q9 -->
+        <div class="q-block">
+          <div class="q-text"><span class="q-num">9.</span>Chức năng chính trong chuỗi cung ứng của doanh nghiệp mình là:<span class="req">*</span></div>
+          <div class="radio-group">
+            <label><input type="radio" name="q_info_9" value="1" required /> Thu mua / Cung ứng vật tư</label>
+            <label><input type="radio" name="q_info_9" value="2" /> Sản xuất / Vận hành</label>
+            <label><input type="radio" name="q_info_9" value="3" /> Logistics / Vận tải</label>
+            <label><input type="radio" name="q_info_9" value="4" /> Lập kế hoạch chuỗi cung ứng</label>
+            <label><input type="radio" name="q_info_9" value="5" /> Quản trị phát triển bền vững / ESG</label>
+            <label><input type="radio" name="q_info_9" value="6" /> Phân tích dữ liệu / Chuỗi cung ứng số</label>
+            <label><input type="radio" name="q_info_9" value="7" /> Quản lý điều hành</label>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /demographic card -->
+
+    <!-- ── LIKERT HELPER MACRO ──────────────────────────────
+         Scale labels (col headers):
+         1=Hoàn toàn không đồng ý  2=Không đồng ý  3=Trung lập
+         4=Đồng ý  5=Hoàn toàn đồng ý
+    ─────────────────────────────────────────────────────── -->
+
+    <!-- ── SEI ─────────────────────────────────────────────── -->
+    <div class="section-card">
+      <div class="section-header">PHẦN II: BẤT BÌNH ĐẲNG VỀ CẤU TRÚC VÀ KINH TẾ XÃ HỘI (SEI)</div>
+      <div class="section-desc">Đánh giá bất bình đẳng về cấu trúc và kinh tế xã hội tại công ty nơi đáp viên làm việc</div>
+      <div class="section-body">
+        <table class="likert-table">
+          <thead>
+            <tr>
+              <th class="q-col">Câu hỏi</th>
+              <th>Hoàn toàn không đồng ý</th><th>Không đồng ý</th><th>Trung lập</th><th>Đồng ý</th><th>Hoàn toàn đồng ý</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="q-text-cell">1. Sự khác biệt về cơ hội giáo dục ảnh hưởng đến khả năng thăng tiến nghề nghiệp trong các vị trí chuỗi cung ứng.</td><td><input type="radio" name="sei_1" value="1" required /></td><td><input type="radio" name="sei_1" value="2" /></td><td><input type="radio" name="sei_1" value="3" /></td><td><input type="radio" name="sei_1" value="4" /></td><td><input type="radio" name="sei_1" value="5" /></td></tr>
+            <tr><td class="q-text-cell">2. Bất bình đẳng về thu nhập ảnh hưởng đến khả năng tiếp cận các cơ hội lãnh đạo của nhân viên.</td><td><input type="radio" name="sei_2" value="1" required /></td><td><input type="radio" name="sei_2" value="2" /></td><td><input type="radio" name="sei_2" value="3" /></td><td><input type="radio" name="sei_2" value="4" /></td><td><input type="radio" name="sei_2" value="5" /></td></tr>
+            <tr><td class="q-text-cell">3. Nền tảng kinh tế xã hội định hình khả năng dịch chuyển nghề nghiệp (thay đổi vị trí/thăng chức) trong các tổ chức chuỗi cung ứng.</td><td><input type="radio" name="sei_3" value="1" required /></td><td><input type="radio" name="sei_3" value="2" /></td><td><input type="radio" name="sei_3" value="3" /></td><td><input type="radio" name="sei_3" value="4" /></td><td><input type="radio" name="sei_3" value="5" /></td></tr>
+            <tr><td class="q-text-cell">4. Sắc tộc hoặc tầng lớp xã hội ảnh hưởng đến các cơ hội phát triển chuyên môn trong ngành chuỗi cung ứng.</td><td><input type="radio" name="sei_4" value="1" required /></td><td><input type="radio" name="sei_4" value="2" /></td><td><input type="radio" name="sei_4" value="3" /></td><td><input type="radio" name="sei_4" value="4" /></td><td><input type="radio" name="sei_4" value="5" /></td></tr>
+            <tr><td class="q-text-cell">5. Việc tiếp cận không bình đẳng các chương trình đào tạo chuyên môn ảnh hưởng đến sự thăng tiến trong các vai trò chuỗi cung ứng.</td><td><input type="radio" name="sei_5" value="1" required /></td><td><input type="radio" name="sei_5" value="2" /></td><td><input type="radio" name="sei_5" value="3" /></td><td><input type="radio" name="sei_5" value="4" /></td><td><input type="radio" name="sei_5" value="5" /></td></tr>
+            <tr><td class="q-text-cell">6. Nhân viên có hoàn cảnh kinh tế xã hội khó khăn phải đối mặt với nhiều rào cản hơn trong con đường sự nghiệp của ngành chuỗi cung ứng.</td><td><input type="radio" name="sei_6" value="1" required /></td><td><input type="radio" name="sei_6" value="2" /></td><td><input type="radio" name="sei_6" value="3" /></td><td><input type="radio" name="sei_6" value="4" /></td><td><input type="radio" name="sei_6" value="5" /></td></tr>
+            <tr><td class="q-text-cell">7. Bất bình đẳng xã hội có tác động đến các quyết định tuyển dụng và thăng tiến trong các tổ chức chuỗi cung ứng.</td><td><input type="radio" name="sei_7" value="1" required /></td><td><input type="radio" name="sei_7" value="2" /></td><td><input type="radio" name="sei_7" value="3" /></td><td><input type="radio" name="sei_7" value="4" /></td><td><input type="radio" name="sei_7" value="5" /></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── LWI ─────────────────────────────────────────────── -->
+    <div class="section-card">
+      <div class="section-header">PHẦN III: BẤT BÌNH ĐẲNG VỀ GIỚI TÍNH VÀ LAO ĐỘNG (LWI)</div>
+      <div class="section-desc">Đánh giá sự bất bình đẳng về giới tính và lao động tại công ty nơi đáp viên đang đi làm</div>
+      <div class="section-body">
+        <table class="likert-table">
+          <thead>
+            <tr>
+              <th class="q-col">Câu hỏi</th>
+              <th>Hoàn toàn không đồng ý</th><th>Không đồng ý</th><th>Trung lập</th><th>Đồng ý</th><th>Hoàn toàn đồng ý</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="q-text-cell">1. Khoảng cách thu nhập theo giới tính vẫn tồn tại trong các vị trí chuỗi cung ứng tại tổ chức của tôi.</td><td><input type="radio" name="lwi_1" value="1" required /></td><td><input type="radio" name="lwi_1" value="2" /></td><td><input type="radio" name="lwi_1" value="3" /></td><td><input type="radio" name="lwi_1" value="4" /></td><td><input type="radio" name="lwi_1" value="5" /></td></tr>
+            <tr><td class="q-text-cell">2. Một số vai trò nhất định trong chuỗi cung ứng đang bị chiếm ưu thế bởi một giới tính cụ thể.</td><td><input type="radio" name="lwi_2" value="1" required /></td><td><input type="radio" name="lwi_2" value="2" /></td><td><input type="radio" name="lwi_2" value="3" /></td><td><input type="radio" name="lwi_2" value="4" /></td><td><input type="radio" name="lwi_2" value="5" /></td></tr>
+            <tr><td class="q-text-cell">3. Phụ nữ đối mặt với nhiều rào cản hơn trong việc thăng tiến sự nghiệp ngành chuỗi cung ứng.</td><td><input type="radio" name="lwi_3" value="1" required /></td><td><input type="radio" name="lwi_3" value="2" /></td><td><input type="radio" name="lwi_3" value="3" /></td><td><input type="radio" name="lwi_3" value="4" /></td><td><input type="radio" name="lwi_3" value="5" /></td></tr>
+            <tr><td class="q-text-cell">4. Các hình thức làm việc phi chính thức hoặc bấp bênh thường phổ biến hơn đối với lao động nữ trong ngành chuỗi cung ứng.</td><td><input type="radio" name="lwi_4" value="1" required /></td><td><input type="radio" name="lwi_4" value="2" /></td><td><input type="radio" name="lwi_4" value="3" /></td><td><input type="radio" name="lwi_4" value="4" /></td><td><input type="radio" name="lwi_4" value="5" /></td></tr>
+            <tr><td class="q-text-cell">5. Phụ nữ đảm nhận các vai trò trong chuỗi cung ứng thường nhận được ít cơ hội phát triển nghề nghiệp hơn.</td><td><input type="radio" name="lwi_5" value="1" required /></td><td><input type="radio" name="lwi_5" value="2" /></td><td><input type="radio" name="lwi_5" value="3" /></td><td><input type="radio" name="lwi_5" value="4" /></td><td><input type="radio" name="lwi_5" value="5" /></td></tr>
+            <tr><td class="q-text-cell">6. Có sự khác biệt về giới tính trong việc tiếp cận các nhiệm vụ chiến lược hoặc các nhiệm vụ có giá trị cao trong chuỗi cung ứng.</td><td><input type="radio" name="lwi_6" value="1" required /></td><td><input type="radio" name="lwi_6" value="2" /></td><td><input type="radio" name="lwi_6" value="3" /></td><td><input type="radio" name="lwi_6" value="4" /></td><td><input type="radio" name="lwi_6" value="5" /></td></tr>
+            <tr><td class="q-text-cell">7. Nhân viên nữ gặp nhiều thách thức hơn trong việc đạt được sự ổn định nghề nghiệp lâu dài trong ngành chuỗi cung ứng.</td><td><input type="radio" name="lwi_7" value="1" required /></td><td><input type="radio" name="lwi_7" value="2" /></td><td><input type="radio" name="lwi_7" value="3" /></td><td><input type="radio" name="lwi_7" value="4" /></td><td><input type="radio" name="lwi_7" value="5" /></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── PGI ─────────────────────────────────────────────── -->
+    <div class="section-card">
+      <div class="section-header">PHẦN IV: BẤT BÌNH ĐẲNG VỀ QUYỀN LỰC &amp; QUẢN TRỊ (PGI)</div>
+      <div class="section-desc">Đánh giá sự bất bình đẳng về quyền lực &amp; quản trị tại công ty nơi đáp viên đang đi làm</div>
+      <div class="section-body">
+        <table class="likert-table">
+          <thead>
+            <tr>
+              <th class="q-col">Câu hỏi</th>
+              <th>Hoàn toàn không đồng ý</th><th>Không đồng ý</th><th>Trung lập</th><th>Đồng ý</th><th>Hoàn toàn đồng ý</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="q-text-cell">1. Quyền ra quyết định trong quản trị chuỗi cung ứng phần lớn nằm trong tay nam giới.</td><td><input type="radio" name="pgi_1" value="1" required /></td><td><input type="radio" name="pgi_1" value="2" /></td><td><input type="radio" name="pgi_1" value="3" /></td><td><input type="radio" name="pgi_1" value="4" /></td><td><input type="radio" name="pgi_1" value="5" /></td></tr>
+            <tr><td class="q-text-cell">2. Phụ nữ chưa được đại diện tương xứng (tỷ lệ thấp) trong các vị trí lãnh đạo chiến lược của chuỗi cung ứng.</td><td><input type="radio" name="pgi_2" value="1" required /></td><td><input type="radio" name="pgi_2" value="2" /></td><td><input type="radio" name="pgi_2" value="3" /></td><td><input type="radio" name="pgi_2" value="4" /></td><td><input type="radio" name="pgi_2" value="5" /></td></tr>
+            <tr><td class="q-text-cell">3. Định kiến giới tính có ảnh hưởng đến việc lựa chọn nhà cung cấp hoặc các quyết định quản trị.</td><td><input type="radio" name="pgi_3" value="1" required /></td><td><input type="radio" name="pgi_3" value="2" /></td><td><input type="radio" name="pgi_3" value="3" /></td><td><input type="radio" name="pgi_3" value="4" /></td><td><input type="radio" name="pgi_3" value="5" /></td></tr>
+            <tr><td class="q-text-cell">4. Phụ nữ có tầm ảnh hưởng hạn chế đối với các quyết định về chính sách của chuỗi cung ứng.</td><td><input type="radio" name="pgi_4" value="1" required /></td><td><input type="radio" name="pgi_4" value="2" /></td><td><input type="radio" name="pgi_4" value="3" /></td><td><input type="radio" name="pgi_4" value="4" /></td><td><input type="radio" name="pgi_4" value="5" /></td></tr>
+            <tr><td class="q-text-cell">5. Các vai trò lãnh đạo trong quản trị chuỗi cung ứng bị nam giới nắm giữ một cách không cân xứng (chiếm đa số áp đảo).</td><td><input type="radio" name="pgi_5" value="1" required /></td><td><input type="radio" name="pgi_5" value="2" /></td><td><input type="radio" name="pgi_5" value="3" /></td><td><input type="radio" name="pgi_5" value="4" /></td><td><input type="radio" name="pgi_5" value="5" /></td></tr>
+            <tr><td class="q-text-cell">6. Các chuyên gia nữ có ít cơ hội hơn trong việc gây ảnh hưởng đến quá trình lập kế hoạch chiến lược chuỗi cung ứng.</td><td><input type="radio" name="pgi_6" value="1" required /></td><td><input type="radio" name="pgi_6" value="2" /></td><td><input type="radio" name="pgi_6" value="3" /></td><td><input type="radio" name="pgi_6" value="4" /></td><td><input type="radio" name="pgi_6" value="5" /></td></tr>
+            <tr><td class="q-text-cell">7. Cơ cấu quản trị của tổ chức làm hạn chế sự tham gia của phụ nữ vào các cấp lãnh đạo chuỗi cung ứng.</td><td><input type="radio" name="pgi_7" value="1" required /></td><td><input type="radio" name="pgi_7" value="2" /></td><td><input type="radio" name="pgi_7" value="3" /></td><td><input type="radio" name="pgi_7" value="4" /></td><td><input type="radio" name="pgi_7" value="5" /></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── SCPO ────────────────────────────────────────────── -->
+    <div class="section-card">
+      <div class="section-header">PHẦN V: THỰC THI VÀ KẾT QUẢ CHUỖI CUNG ỨNG (SCPO)</div>
+      <div class="section-desc">Đánh giá sự thực thi và kết quả chuỗi cung ứng tại công ty nơi đáp viên đang đi làm</div>
+      <div class="section-body">
+        <table class="likert-table">
+          <thead>
+            <tr>
+              <th class="q-col">Câu hỏi</th>
+              <th>Hoàn toàn không đồng ý</th><th>Không đồng ý</th><th>Trung lập</th><th>Đồng ý</th><th>Hoàn toàn đồng ý</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="q-text-cell">1. Bình đẳng giới giúp cải thiện sự phối hợp và cộng tác trong các nhóm chuỗi cung ứng.</td><td><input type="radio" name="scpo_1" value="1" required /></td><td><input type="radio" name="scpo_1" value="2" /></td><td><input type="radio" name="scpo_1" value="3" /></td><td><input type="radio" name="scpo_1" value="4" /></td><td><input type="radio" name="scpo_1" value="5" /></td></tr>
+            <tr><td class="q-text-cell">2. Các quy trình chuỗi cung ứng mang tính hòa nhập (không phân biệt) giúp nâng cao hiệu quả vận hành.</td><td><input type="radio" name="scpo_2" value="1" required /></td><td><input type="radio" name="scpo_2" value="2" /></td><td><input type="radio" name="scpo_2" value="3" /></td><td><input type="radio" name="scpo_2" value="4" /></td><td><input type="radio" name="scpo_2" value="5" /></td></tr>
+            <tr><td class="q-text-cell">3. Sự đa dạng về giới tính giúp cải thiện khả năng chống chịu (Resilience) của chuỗi cung ứng.</td><td><input type="radio" name="scpo_3" value="1" required /></td><td><input type="radio" name="scpo_3" value="2" /></td><td><input type="radio" name="scpo_3" value="3" /></td><td><input type="radio" name="scpo_3" value="4" /></td><td><input type="radio" name="scpo_3" value="5" /></td></tr>
+            <tr><td class="q-text-cell">4. Cơ hội bình đẳng giúp nâng cao năng suất trong các hoạt động của chuỗi cung ứng.</td><td><input type="radio" name="scpo_4" value="1" required /></td><td><input type="radio" name="scpo_4" value="2" /></td><td><input type="radio" name="scpo_4" value="3" /></td><td><input type="radio" name="scpo_4" value="4" /></td><td><input type="radio" name="scpo_4" value="5" /></td></tr>
+            <tr><td class="q-text-cell">5. Sự đa dạng giới tính giúp cải thiện khả năng giải quyết vấn đề trong các hoạt động chuỗi cung ứng.</td><td><input type="radio" name="scpo_5" value="1" required /></td><td><input type="radio" name="scpo_5" value="2" /></td><td><input type="radio" name="scpo_5" value="3" /></td><td><input type="radio" name="scpo_5" value="4" /></td><td><input type="radio" name="scpo_5" value="5" /></td></tr>
+            <tr><td class="q-text-cell">6. Môi trường làm việc hòa nhập giúp tăng cường sự phối hợp giữa các đối tác trong chuỗi cung ứng.</td><td><input type="radio" name="scpo_6" value="1" required /></td><td><input type="radio" name="scpo_6" value="2" /></td><td><input type="radio" name="scpo_6" value="3" /></td><td><input type="radio" name="scpo_6" value="4" /></td><td><input type="radio" name="scpo_6" value="5" /></td></tr>
+            <tr><td class="q-text-cell">7. Các tổ chức có đội ngũ cân bằng về giới tính cho thấy khả năng thích ứng chuỗi cung ứng mạnh mẽ hơn.</td><td><input type="radio" name="scpo_7" value="1" required /></td><td><input type="radio" name="scpo_7" value="2" /></td><td><input type="radio" name="scpo_7" value="3" /></td><td><input type="radio" name="scpo_7" value="4" /></td><td><input type="radio" name="scpo_7" value="5" /></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── SESI ────────────────────────────────────────────── -->
+    <div class="section-card">
+      <div class="section-header">PHẦN VI: TÁC ĐỘNG KINH TẾ - XÃ HỘI VÀ SỰ BỀN VỮNG (SESI)</div>
+      <div class="section-desc">Đánh giá tác động kinh tế - xã hội và sự bền vững tại công ty nơi đáp viên đang đi làm</div>
+      <div class="section-body">
+        <table class="likert-table">
+          <thead>
+            <tr>
+              <th class="q-col">Câu hỏi</th>
+              <th>Hoàn toàn không đồng ý</th><th>Không đồng ý</th><th>Trung lập</th><th>Đồng ý</th><th>Hoàn toàn đồng ý</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="q-text-cell">1. Bình đẳng giới giúp cải thiện phúc lợi của nhân viên trong các tổ chức chuỗi cung ứng.</td><td><input type="radio" name="sesi_1" value="1" required /></td><td><input type="radio" name="sesi_1" value="2" /></td><td><input type="radio" name="sesi_1" value="3" /></td><td><input type="radio" name="sesi_1" value="4" /></td><td><input type="radio" name="sesi_1" value="5" /></td></tr>
+            <tr><td class="q-text-cell">2. Chuỗi cung ứng hòa nhập (không phân biệt đối xử) đóng góp vào sự bền vững về mặt xã hội.</td><td><input type="radio" name="sesi_2" value="1" required /></td><td><input type="radio" name="sesi_2" value="2" /></td><td><input type="radio" name="sesi_2" value="3" /></td><td><input type="radio" name="sesi_2" value="4" /></td><td><input type="radio" name="sesi_2" value="5" /></td></tr>
+            <tr><td class="q-text-cell">3. Bình đẳng giới giúp củng cố hiệu quả kinh tế trong dài hạn của doanh nghiệp.</td><td><input type="radio" name="sesi_3" value="1" required /></td><td><input type="radio" name="sesi_3" value="2" /></td><td><input type="radio" name="sesi_3" value="3" /></td><td><input type="radio" name="sesi_3" value="4" /></td><td><input type="radio" name="sesi_3" value="5" /></td></tr>
+            <tr><td class="q-text-cell">4. Bình đẳng giới góp phần tạo ra các cơ hội kinh tế công bằng hơn trong các ngành công nghiệp chuỗi cung ứng.</td><td><input type="radio" name="sesi_4" value="1" required /></td><td><input type="radio" name="sesi_4" value="2" /></td><td><input type="radio" name="sesi_4" value="3" /></td><td><input type="radio" name="sesi_4" value="4" /></td><td><input type="radio" name="sesi_4" value="5" /></td></tr>
+            <tr><td class="q-text-cell">5. Các chuỗi cung ứng hòa nhập giúp tăng cường phát triển cộng đồng và ổn định xã hội.</td><td><input type="radio" name="sesi_5" value="1" required /></td><td><input type="radio" name="sesi_5" value="2" /></td><td><input type="radio" name="sesi_5" value="3" /></td><td><input type="radio" name="sesi_5" value="4" /></td><td><input type="radio" name="sesi_5" value="5" /></td></tr>
+            <tr><td class="q-text-cell">6. Các chính sách hòa nhập giới giúp cải thiện tính bền vững dài hạn của toàn bộ hệ sinh thái chuỗi cung ứng.</td><td><input type="radio" name="sesi_6" value="1" required /></td><td><input type="radio" name="sesi_6" value="2" /></td><td><input type="radio" name="sesi_6" value="3" /></td><td><input type="radio" name="sesi_6" value="4" /></td><td><input type="radio" name="sesi_6" value="5" /></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── HCSC ────────────────────────────────────────────── -->
+    <div class="section-card">
+      <div class="section-header">PHẦN VII: VĂN HÓA CHUỖI CUNG ỨNG LẤY CON NGƯỜI LÀM TRUNG TÂM (HCSC)</div>
+      <div class="section-desc">Đánh giá văn hóa chuỗi cung ứng lấy con người làm trung tâm tại công ty nơi đáp viên đang đi làm</div>
+      <div class="section-body">
+        <table class="likert-table">
+          <thead>
+            <tr>
+              <th class="q-col">Câu hỏi</th>
+              <th>Hoàn toàn không đồng ý</th><th>Không đồng ý</th><th>Trung lập</th><th>Đồng ý</th><th>Hoàn toàn đồng ý</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="q-text-cell">1. Tổ chức của chúng tôi ưu tiên phúc lợi của nhân viên trong các hoạt động chuỗi cung ứng.</td><td><input type="radio" name="hcsc_1" value="1" required /></td><td><input type="radio" name="hcsc_1" value="2" /></td><td><input type="radio" name="hcsc_1" value="3" /></td><td><input type="radio" name="hcsc_1" value="4" /></td><td><input type="radio" name="hcsc_1" value="5" /></td></tr>
+            <tr><td class="q-text-cell">2. Các quyết định về chuỗi cung ứng có cân nhắc đến các tác động về con người và xã hội.</td><td><input type="radio" name="hcsc_2" value="1" required /></td><td><input type="radio" name="hcsc_2" value="2" /></td><td><input type="radio" name="hcsc_2" value="3" /></td><td><input type="radio" name="hcsc_2" value="4" /></td><td><input type="radio" name="hcsc_2" value="5" /></td></tr>
+            <tr><td class="q-text-cell">3. Ban lãnh đạo khuyến khích sự tham gia hòa nhập của mọi người vào quá trình ra quyết định.</td><td><input type="radio" name="hcsc_3" value="1" required /></td><td><input type="radio" name="hcsc_3" value="2" /></td><td><input type="radio" name="hcsc_3" value="3" /></td><td><input type="radio" name="hcsc_3" value="4" /></td><td><input type="radio" name="hcsc_3" value="5" /></td></tr>
+            <tr><td class="q-text-cell">4. Quản trị lấy con người làm trung tâm giúp cải thiện sự bình đẳng tại nơi làm việc.</td><td><input type="radio" name="hcsc_4" value="1" required /></td><td><input type="radio" name="hcsc_4" value="2" /></td><td><input type="radio" name="hcsc_4" value="3" /></td><td><input type="radio" name="hcsc_4" value="4" /></td><td><input type="radio" name="hcsc_4" value="5" /></td></tr>
+            <tr><td class="q-text-cell">5. Tổ chức của chúng tôi thúc đẩy sự công bằng và bình đẳng trong quản trị nhân sự chuỗi cung ứng.</td><td><input type="radio" name="hcsc_5" value="1" required /></td><td><input type="radio" name="hcsc_5" value="2" /></td><td><input type="radio" name="hcsc_5" value="3" /></td><td><input type="radio" name="hcsc_5" value="4" /></td><td><input type="radio" name="hcsc_5" value="5" /></td></tr>
+            <tr><td class="q-text-cell">6. Phúc lợi của nhân viên được coi là một mục tiêu quan trọng trong các chiến lược chuỗi cung ứng.</td><td><input type="radio" name="hcsc_6" value="1" required /></td><td><input type="radio" name="hcsc_6" value="2" /></td><td><input type="radio" name="hcsc_6" value="3" /></td><td><input type="radio" name="hcsc_6" value="4" /></td><td><input type="radio" name="hcsc_6" value="5" /></td></tr>
+            <tr><td class="q-text-cell">7. Các nhà lãnh đạo chuỗi cung ứng tích cực ủng hộ các sáng kiến về đa dạng và hòa nhập.</td><td><input type="radio" name="hcsc_7" value="1" required /></td><td><input type="radio" name="hcsc_7" value="2" /></td><td><input type="radio" name="hcsc_7" value="3" /></td><td><input type="radio" name="hcsc_7" value="4" /></td><td><input type="radio" name="hcsc_7" value="5" /></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── GAI ─────────────────────────────────────────────── -->
+    <div class="section-card">
+      <div class="section-header">PHẦN VIII: HỖ TRỢ RA QUYẾT ĐỊNH BẰNG GENERATIVE AI (GAI)</div>
+      <div class="section-desc">Đánh giá sự hỗ trợ ra quyết định bằng Generative AI tại công ty nơi đáp viên đang đi làm</div>
+      <div class="section-body">
+        <table class="likert-table">
+          <thead>
+            <tr>
+              <th class="q-col">Câu hỏi</th>
+              <th>Hoàn toàn không đồng ý</th><th>Không đồng ý</th><th>Trung lập</th><th>Đồng ý</th><th>Hoàn toàn đồng ý</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="q-text-cell">1. Các công cụ AI tạo sinh (Generative AI) được sử dụng để hỗ trợ ra quyết định trong chuỗi cung ứng.</td><td><input type="radio" name="gai_1" value="1" required /></td><td><input type="radio" name="gai_1" value="2" /></td><td><input type="radio" name="gai_1" value="3" /></td><td><input type="radio" name="gai_1" value="4" /></td><td><input type="radio" name="gai_1" value="5" /></td></tr>
+            <tr><td class="q-text-cell">2. Các hệ thống dựa trên AI giúp giảm bớt định kiến trong việc đánh giá hiệu suất chuỗi cung ứng.</td><td><input type="radio" name="gai_2" value="1" required /></td><td><input type="radio" name="gai_2" value="2" /></td><td><input type="radio" name="gai_2" value="3" /></td><td><input type="radio" name="gai_2" value="4" /></td><td><input type="radio" name="gai_2" value="5" /></td></tr>
+            <tr><td class="q-text-cell">3. Phân tích được AI hỗ trợ giúp cải thiện sự công bằng trong quản trị nhân sự.</td><td><input type="radio" name="gai_3" value="1" required /></td><td><input type="radio" name="gai_3" value="2" /></td><td><input type="radio" name="gai_3" value="3" /></td><td><input type="radio" name="gai_3" value="4" /></td><td><input type="radio" name="gai_3" value="5" /></td></tr>
+            <tr><td class="q-text-cell">4. Các công cụ AI giúp tăng tính minh bạch trong quản trị chuỗi cung ứng.</td><td><input type="radio" name="gai_4" value="1" required /></td><td><input type="radio" name="gai_4" value="2" /></td><td><input type="radio" name="gai_4" value="3" /></td><td><input type="radio" name="gai_4" value="4" /></td><td><input type="radio" name="gai_4" value="5" /></td></tr>
+            <tr><td class="q-text-cell">5. Những thông tin chi tiết (insights) do AI tạo ra giúp các nhà quản trị đưa ra quyết định chuỗi cung ứng khách quan hơn.</td><td><input type="radio" name="gai_5" value="1" required /></td><td><input type="radio" name="gai_5" value="2" /></td><td><input type="radio" name="gai_5" value="3" /></td><td><input type="radio" name="gai_5" value="4" /></td><td><input type="radio" name="gai_5" value="5" /></td></tr>
+            <tr><td class="q-text-cell">6. Các công cụ GenAI giúp nhận diện những định kiến ngầm trong thực hành quản trị chuỗi cung ứng.</td><td><input type="radio" name="gai_6" value="1" required /></td><td><input type="radio" name="gai_6" value="2" /></td><td><input type="radio" name="gai_6" value="3" /></td><td><input type="radio" name="gai_6" value="4" /></td><td><input type="radio" name="gai_6" value="5" /></td></tr>
+            <tr><td class="q-text-cell">7. Các hệ thống ra quyết định được AI hỗ trợ giúp tăng cường tính minh bạch trong các quy trình của tổ chức.</td><td><input type="radio" name="gai_7" value="1" required /></td><td><input type="radio" name="gai_7" value="2" /></td><td><input type="radio" name="gai_7" value="3" /></td><td><input type="radio" name="gai_7" value="4" /></td><td><input type="radio" name="gai_7" value="5" /></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── AAI ─────────────────────────────────────────────── -->
+    <div class="section-card">
+      <div class="section-header">PHẦN IX: QUẢN TRỊ BẰNG CHUỖI AI HÀNH ĐỘNG (AGENTIC AI – AAI)</div>
+      <div class="section-desc">Đánh giá sự quản trị bằng chuỗi AI hành động (Agentic AI) tại công ty nơi đáp viên đang đi làm</div>
+      <div class="section-body">
+        <table class="likert-table">
+          <thead>
+            <tr>
+              <th class="q-col">Câu hỏi</th>
+              <th>Hoàn toàn không đồng ý</th><th>Không đồng ý</th><th>Trung lập</th><th>Đồng ý</th><th>Hoàn toàn đồng ý</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="q-text-cell">1. Các chuỗi AI hành động (AI agents) hỗ trợ các quyết định vận hành chuỗi cung ứng.</td><td><input type="radio" name="aai_1" value="1" required /></td><td><input type="radio" name="aai_1" value="2" /></td><td><input type="radio" name="aai_1" value="3" /></td><td><input type="radio" name="aai_1" value="4" /></td><td><input type="radio" name="aai_1" value="5" /></td></tr>
+            <tr><td class="q-text-cell">2. Các chuỗi AI hành động hỗ trợ giám sát sự công bằng trong các quy trình chuỗi cung ứng.</td><td><input type="radio" name="aai_2" value="1" required /></td><td><input type="radio" name="aai_2" value="2" /></td><td><input type="radio" name="aai_2" value="3" /></td><td><input type="radio" name="aai_2" value="4" /></td><td><input type="radio" name="aai_2" value="5" /></td></tr>
+            <tr><td class="q-text-cell">3. Tự động hóa dựa trên AI giúp cải thiện tính minh bạch trong quản trị nhà cung cấp.</td><td><input type="radio" name="aai_3" value="1" required /></td><td><input type="radio" name="aai_3" value="2" /></td><td><input type="radio" name="aai_3" value="3" /></td><td><input type="radio" name="aai_3" value="4" /></td><td><input type="radio" name="aai_3" value="5" /></td></tr>
+            <tr><td class="q-text-cell">4. Các chuỗi AI hành động tự chủ giúp đảm bảo tính công bằng trong các quyết định vận hành chuỗi cung ứng.</td><td><input type="radio" name="aai_4" value="1" required /></td><td><input type="radio" name="aai_4" value="2" /></td><td><input type="radio" name="aai_4" value="3" /></td><td><input type="radio" name="aai_4" value="4" /></td><td><input type="radio" name="aai_4" value="5" /></td></tr>
+            <tr><td class="q-text-cell">5. Các chuỗi AI hành động hỗ trợ tổ chức trong việc giám sát sự bình đẳng và tuân thủ trong chuỗi cung ứng.</td><td><input type="radio" name="aai_5" value="1" required /></td><td><input type="radio" name="aai_5" value="2" /></td><td><input type="radio" name="aai_5" value="3" /></td><td><input type="radio" name="aai_5" value="4" /></td><td><input type="radio" name="aai_5" value="5" /></td></tr>
+            <tr><td class="q-text-cell">6. Tự động hóa do chuỗi AI hành động thúc đẩy giúp nâng cao trách nhiệm giải trình trong các quy trình quản trị nhà cung cấp.</td><td><input type="radio" name="aai_6" value="1" required /></td><td><input type="radio" name="aai_6" value="2" /></td><td><input type="radio" name="aai_6" value="3" /></td><td><input type="radio" name="aai_6" value="4" /></td><td><input type="radio" name="aai_6" value="5" /></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── ESG ─────────────────────────────────────────────── -->
+    <div class="section-card">
+      <div class="section-header">PHẦN X: CHÍNH SÁCH CHUỖI CUNG ỨNG DỰA TRÊN ESG</div>
+      <div class="section-desc">Đánh giá chính sách chuỗi cung ứng dựa trên ESG tại công ty nơi đáp viên đang đi làm</div>
+      <div class="section-body">
+        <table class="likert-table">
+          <thead>
+            <tr>
+              <th class="q-col">Câu hỏi</th>
+              <th>Hoàn toàn không đồng ý</th><th>Không đồng ý</th><th>Trung lập</th><th>Đồng ý</th><th>Hoàn toàn đồng ý</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="q-text-cell">1. Tổ chức của chúng tôi tích hợp bình đẳng giới vào các chiến lược ESG.</td><td><input type="radio" name="esg_1" value="1" required /></td><td><input type="radio" name="esg_1" value="2" /></td><td><input type="radio" name="esg_1" value="3" /></td><td><input type="radio" name="esg_1" value="4" /></td><td><input type="radio" name="esg_1" value="5" /></td></tr>
+            <tr><td class="q-text-cell">2. Việc lựa chọn nhà cung cấp có cân nhắc đến các tiêu chí về bình đẳng xã hội.</td><td><input type="radio" name="esg_2" value="1" required /></td><td><input type="radio" name="esg_2" value="2" /></td><td><input type="radio" name="esg_2" value="3" /></td><td><input type="radio" name="esg_2" value="4" /></td><td><input type="radio" name="esg_2" value="5" /></td></tr>
+            <tr><td class="q-text-cell">3. Các chính sách ESG khuyến khích sự đa dạng giới trong hàng ngũ lãnh đạo chuỗi cung ứng.</td><td><input type="radio" name="esg_3" value="1" required /></td><td><input type="radio" name="esg_3" value="2" /></td><td><input type="radio" name="esg_3" value="3" /></td><td><input type="radio" name="esg_3" value="4" /></td><td><input type="radio" name="esg_3" value="5" /></td></tr>
+            <tr><td class="q-text-cell">4. Báo cáo ESG giúp tăng trách nhiệm giải trình đối với bình đẳng tại nơi làm việc.</td><td><input type="radio" name="esg_4" value="1" required /></td><td><input type="radio" name="esg_4" value="2" /></td><td><input type="radio" name="esg_4" value="3" /></td><td><input type="radio" name="esg_4" value="4" /></td><td><input type="radio" name="esg_4" value="5" /></td></tr>
+            <tr><td class="q-text-cell">5. Các khung quản trị ESG thúc đẩy bình đẳng giới xuyên suốt các đối tác trong chuỗi cung ứng.</td><td><input type="radio" name="esg_5" value="1" required /></td><td><input type="radio" name="esg_5" value="2" /></td><td><input type="radio" name="esg_5" value="3" /></td><td><input type="radio" name="esg_5" value="4" /></td><td><input type="radio" name="esg_5" value="5" /></td></tr>
+            <tr><td class="q-text-cell">6. Tổ chức của chúng tôi thường xuyên đánh giá các chỉ số bình đẳng giới trong báo cáo ESG.</td><td><input type="radio" name="esg_6" value="1" required /></td><td><input type="radio" name="esg_6" value="2" /></td><td><input type="radio" name="esg_6" value="3" /></td><td><input type="radio" name="esg_6" value="4" /></td><td><input type="radio" name="esg_6" value="5" /></td></tr>
+            <tr><td class="q-text-cell">7. Quản trị dựa trên ESG giúp cải thiện tính minh bạch trong quản trị sự đa dạng của đội ngũ nhân sự.</td><td><input type="radio" name="esg_7" value="1" required /></td><td><input type="radio" name="esg_7" value="2" /></td><td><input type="radio" name="esg_7" value="3" /></td><td><input type="radio" name="esg_7" value="4" /></td><td><input type="radio" name="esg_7" value="5" /></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── Submit ──────────────────────────────────────────── -->
+    <div class="submit-section">
+      <p class="submit-note">Vui lòng kiểm tra lại các câu trả lời trước khi gửi. Sau khi gửi, bạn sẽ không thể chỉnh sửa.</p>
+      <button type="submit" id="submit-btn">GỬI BẢNG CÂU HỎI</button>
+    </div>
+
+  </form>
+
+  <!-- Success page (shown after Formspree redirects back) -->
+  <div class="success-page" id="success-page">
+    <h2>Cảm ơn Quý Ông/Bà!</h2>
+    <p>Phản hồi của bạn đã được ghi nhận thành công.<br/>Chúng tôi xin chân thành cảm ơn sự tham gia và đóng góp của bạn.</p>
+  </div>
+
+</div><!-- /container -->
+
+<script>
+  // ── Timestamp ──────────────────────────────────────────────
+  document.getElementById('field-timestamp').value = new Date().toISOString();
+
+  // ── Toggle "other" text input ──────────────────────────────
+  function toggleOther(radio, inputId) {
+    const inp = document.getElementById(inputId);
+    if (radio.checked) {
+      inp.style.display = 'block';
+      inp.required = true;
+    }
+  }
+  // Hide "other" when a different radio in same group is chosen
+  document.querySelectorAll('input[name="q_info_3"]').forEach(r => {
+    r.addEventListener('change', function () {
+      const inp = document.getElementById('other_q3');
+      if (this.value !== '8') {
+        inp.style.display = 'none';
+        inp.required = false;
+        inp.value = '';
+      }
+    });
+  });
+
+  // ── Progress bar ───────────────────────────────────────────
+  const requiredNames = new Set(
+    Array.from(document.querySelectorAll('input[required]')).map(i => i.name)
+  );
+  const total = requiredNames.size;
+
+  function updateProgress() {
+    let answered = 0;
+    requiredNames.forEach(name => {
+      if (document.querySelector(`input[name="${name}"]:checked`)) answered++;
+    });
+    const pct = Math.round((answered / total) * 100);
+    document.getElementById('progress-bar-fill').style.width = pct + '%';
+    document.getElementById('pct').textContent = pct;
+  }
+  document.addEventListener('change', updateProgress);
+  updateProgress();
+
+  // ── Validation before submit ───────────────────────────────
+  document.getElementById('survey-form').addEventListener('submit', function (e) {
+    const missing = [];
+    requiredNames.forEach(name => {
+      if (!document.querySelector(`input[name="${name}"]:checked`)) {
+        missing.push(name);
+      }
+    });
+    if (missing.length > 0) {
+      e.preventDefault();
+      const banner = document.getElementById('error-banner');
+      banner.style.display = 'block';
+      banner.textContent = `Vui lòng trả lời tất cả các câu hỏi bắt buộc. Còn ${missing.length} câu chưa được trả lời.`;
+      // scroll to first unanswered
+      const first = document.querySelector(`input[name="${missing[0]}"]`);
+      if (first) first.closest('.q-block, tr').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+    document.getElementById('submit-btn').disabled = true;
+    document.getElementById('submit-btn').textContent = 'Đang gửi…';
+    document.getElementById('field-timestamp').value = new Date().toISOString();
+  });
+
+  // ── Show success if redirected back with ?success ──────────
+  if (window.location.search.includes('success')) {
+    document.getElementById('survey-form').style.display = 'none';
+    document.getElementById('success-page').style.display = 'block';
+  }
+</script>
+</body>
+</html>
